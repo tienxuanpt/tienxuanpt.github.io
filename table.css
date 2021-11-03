@@ -25,3 +25,19 @@
       width: 1200px;
       margin:100px auto;
   }
+
+  .row-new{
+    background: white;
+  }
+
+  .text-right{
+    text-align: right !important
+  }
+
+  td.txtRed{
+    color: red;
+  }
+
+  td.txtBlue{
+    color: blue;
+  }

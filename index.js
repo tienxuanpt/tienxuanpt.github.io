@@ -3,6 +3,11 @@ class Binance {
     constructor() {
         let me = this;
 
+        // ID của vòng lặp
+        me.intervalID = null;
+        // Thời gian lặp lại biểu đồ
+        me.interValTime = 15;
+
         // Khởi tạo sự kiện
         me.initEvents();
     }
@@ -52,10 +57,28 @@ class Binance {
             let row = $(".rows").eq(0).clone(true);
 
             // Reset giá trị input
-            row.find("input[type='text']").val("");
+            row.find("input[type='text'], input[type='number']").val("");
 
             $(".form-content").append(row);
         });
+    }
+
+    // Bắt đầu thống kê
+    startStatistic(){
+        let me = this;
+
+        // Xóa interval hiện tại
+        if(me.intervalID){
+            clearInterval(me.intervalID);
+        }
+
+        // Chạy luôn lần đầu
+        me.submitData();
+
+        // Khởi tạo chuỗi vòng lặp
+        me.intervalID = setInterval(function(){
+            me.submitData();
+        }, me.interValTime*1000);
     }
 
     // Sự kiện khi submit
@@ -67,7 +90,7 @@ class Binance {
 
             if (valid) {
                 me.showStep(2);
-                me.submitData();
+                me.startStatistic();
             }
         });
     }
@@ -75,7 +98,8 @@ class Binance {
     // Submit dữ liệu
     submitData() {
         let me = this,
-            data = me.getDataForm();
+            data = me.getDataForm(),
+            sumData = {};
 
         if (data && data.length > 0) {
             data.filter(function (item) {
@@ -93,7 +117,21 @@ class Binance {
 
                 // Tính trạng thái
                 item.status = item.amount_diff > 0 ? "Lãi" : "Lỗ";
+
+                // Tính toán cho dòng summary
+                sumData.amount_old = sumData.amount_old || 0;
+                sumData.amount_old += item.amount_old;
+
+                sumData.amount_current = sumData.amount_current || 0;
+                sumData.amount_current += item.amount_current;
+
+                sumData.amount_diff = sumData.amount_diff || 0;
+                sumData.amount_diff += item.amount_diff;
             });
+
+            sumData.code = "Tổng cộng:";
+            sumData.status = sumData.amount_diff > 0 ? "Lãi" : "Lỗ";
+            data.push(sumData);
 
             // Hiển thị dữ liệu ra table
             me.renderTableView(data);
@@ -110,14 +148,15 @@ class Binance {
 
             // Duyệt từng bản ghi để build kết quả
             data.filter(function (item) {
-                let row = $(`<tr class='row-new'>
+                let statusCls = item.status == "Lỗ" ? "txtRed" : "txtBlue",
+                    row = $(`<tr class='row-new'>
                                 <td>${item.code}</td>
-                                <td>${item.price_old}</td>
-                                <td>${item.price_current}</td>
-                                <td>${common.formatMoney(item.amount_old)}</td>
-                                <td>${common.formatMoney(item.amount_current)}</td>
-                                <td>${common.formatMoney(item.amount_diff)}</td>
-                                <td>${item.status}</td>
+                                <td class='text-right'>${item.price_old || ""}</td>
+                                <td class='text-right'>${item.price_current || ""}</td>
+                                <td class='text-right'>${common.formatMoney(item.amount_old)}</td>
+                                <td class='text-right'>${common.formatMoney(item.amount_current)}</td>
+                                <td class='text-right'>${common.formatMoney(item.amount_diff)}</td>
+                                <td class='${statusCls}'>${item.status}</td>
                              </tr>`);
 
                 $("#customers").append(row);
@@ -191,13 +230,13 @@ class Binance {
 
             if (valid) {
                 me.showStep(2);
-                me.submitData();
+                me.startStatistic();
             }
         });
 
         // Nạp lại dữ liệu mới
         $(".refresh-data").on("click", function () {
-            me.submitData();
+            me.startStatistic();
         });
     }
 
