@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance</title>
+    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="content-page d-flex">
+        <div class="content-left flex-1">
+            <div class="wrapper setting step1">
+                <h3>BINANCE</h3>
+        
+                <div>
+                    <form action="#">
+                        <div class="form-content">
+                            <div class="rows d-flex">
+                                <div class="col flex-2">
+                                    <input type="text" field="code" name="firstname" placeholder="Nhập mã coin"
+                                        autocomplete="off">
+                                </div>
+                                <div class="col flex-2">
+                                    <input type="number" field="price_old" name="firstname" placeholder="Giá mua" autocomplete="off">
+                                </div>
+                                <div class="col btn-delete">
+                                    <input type="button" class="deleteIcon" value="Xóa">
+                                </div>
+                            </div>
+                        </div>
+        
+                        <input type="button" class="addRow" value="Thêm dòng">
+        
+                        <input type="button" class="submit" value="Đồng ý">
+                    </form>
+                </div>
+            </div>
+        
+            <div class="table-result step2" style="display: none;">
+                <table id="customers">
+                    <tr>
+                      <th>Mã coin</th>
+                      <th>Giá mua</th>
+                      <th>Giá hiện tại</th>
+                      <th>Tiền mua</th>
+                      <th>Tiền hiện tại</th>
+                      <th>Chênh lệch</th>
+                      <th>Trạng thái</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="content-right" style="width:200px; height: 95%;">
+            <input type="button" class="setting-data" value="Thiết lập" style="display: none;">
+            <input type="button" class="statistic-data" value="Thống kê">
+            <input type="button" class="refresh-data" value="Làm mới" style="display: none;">
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="config.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
