@@ -16,7 +16,6 @@ common.Ajax = (url, method, fnCallBack, async = true) => {
         method: method,
         async: async,
         crossDomain: true,
-        contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (response) {
             fnCallBack(response);
