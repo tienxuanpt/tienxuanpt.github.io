@@ -104,13 +104,13 @@ class Binance {
         if (data && data.length > 0) {
             data.filter(function (item) {
                 // Số tiền cũ
-                item.amount_old = Number.parseFloat(item.price_old) * common.config.priceVN * Number.parseFloat(item.quantity);
+                item.amount_old = Math.round(Number.parseFloat(item.price_old) * common.config.priceVN * Number.parseFloat(item.quantity));
 
                 // Lấy giá hiện tại của coin
                 item.price_current = me.getPriceCurrent(item);
 
                 // Tính số tiền mới
-                item.amount_current = item.price_current * common.config.priceVN * Number.parseFloat(item.quantity);
+                item.amount_current = Math.round(item.price_current * common.config.priceVN * Number.parseFloat(item.quantity));
 
                 // Tính số tiền chênh lệch
                 item.amount_diff = item.amount_current - item.amount_old;
