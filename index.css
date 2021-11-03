@@ -1,0 +1,87 @@
+
+html{
+    height: 99vh;
+    background: #7abad9;
+}
+.wrapper{
+    width: 500px;
+    margin: 0px auto;
+    background: whitesmoke;
+}
+h3{
+    text-align: center;
+    font-size: 25px;
+    margin: 5px;
+    color: #18cc1f;
+}
+
+.d-flex{
+    display: flex;
+}
+
+.content-page.d-flex {
+    height: 90%;
+}
+.flex-1{
+    flex: 1;
+}
+.flex-2{
+    flex: 2;
+}
+.form-content{
+    padding: 0;
+}
+.rows{
+    padding: 0;
+}
+.col{
+    padding: 5px;
+}
+input, select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+  }
+  
+  input[type=button] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  body{
+      height: 100%;
+  }
+  input[type=button]:hover {
+    background-color: #45a049;
+  }
+  
+  div {
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+.content-right {
+    background: white;
+    height: 100%;
+}
+
+  input[type=button].addRow{
+    background-color: #4949de;
+  }
+  .btn-delete{
+    width: 50px;
+}
+
+input[type=button].deleteIcon{
+    background-color: red;
+}
