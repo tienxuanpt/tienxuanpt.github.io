@@ -114,9 +114,9 @@ class Binance {
                                 <td>${item.code}</td>
                                 <td>${item.price_old}</td>
                                 <td>${item.price_current}</td>
-                                <td>${item.amount_old}</td>
-                                <td>${item.amount_current}</td>
-                                <td>${item.amount_diff}</td>
+                                <td>${common.formatMoney(item.amount_old)}</td>
+                                <td>${common.formatMoney(item.amount_current)}</td>
+                                <td>${common.formatMoney(item.amount_diff)}</td>
                                 <td>${item.status}</td>
                              </tr>`);
 
