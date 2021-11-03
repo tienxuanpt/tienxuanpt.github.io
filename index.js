@@ -3,6 +3,10 @@ class Binance {
     constructor() {
         let me = this;
 
+        // Số tiền dừng lại
+        me.amountStop = 50000;
+        // Lưu thông tin audio
+        me.audio = new Audio("nhacchuong.mp3");
         // ID của vòng lặp
         me.intervalID = null;
         // Thời gian lặp lại biểu đồ
@@ -66,6 +70,11 @@ class Binance {
     // Bắt đầu thống kê
     startStatistic(){
         let me = this;
+
+        // Thời gian làm mới
+        me.interValTime = Number.parseInt($(".time-refresh").val());
+        // Số tiền chốt lời
+        me.amountStop = Number.parseInt($(".amount-stop").val());
 
         // Xóa interval hiện tại
         if(me.intervalID){
@@ -133,9 +142,28 @@ class Binance {
             sumData.status = sumData.amount_diff > 0 ? "Lãi" : "Lỗ";
             data.push(sumData);
 
+            // Nếu lãi hoặc lỗ quá số tiền quy định thì bật nhạc
+            if(Math.abs(sumData.amount_diff) >= me.amountStop){
+                me.playAudio();
+            }
+
             // Hiển thị dữ liệu ra table
             me.renderTableView(data);
         }
+    }
+
+    // Mở nhạc
+    playAudio(){
+        let me = this;
+
+        me.audio.play();
+    }
+
+    // Tắt nhạc
+    stopAudio(){
+        let me = this;
+
+        me.audio.pause();
     }
 
     // Render hiển thị dữ liệu
@@ -202,7 +230,7 @@ class Binance {
         let valid = true;
 
         // Duyệt từng phàn tử để validate
-        $("input[type='text']").each(function () {
+        $("input[type='text'], input[type='number']").each(function () {
             let value = $(this).val();
 
             if (!value) {
@@ -239,6 +267,16 @@ class Binance {
         // Nạp lại dữ liệu mới
         $(".refresh-data").on("click", function () {
             me.startStatistic();
+        });
+
+        // Mở nhạc
+        $(".play-music").on("click", function () {
+            me.playAudio();
+        });
+
+        // Mở nhạc
+        $(".stop-music").on("click", function () {
+            me.stopAudio();
         });
     }
 
