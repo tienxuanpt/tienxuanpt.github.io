@@ -104,13 +104,13 @@ class Binance {
         if (data && data.length > 0) {
             data.filter(function (item) {
                 // Số tiền cũ
-                item.amount_old = item.price_old * common.config.priceVN;
+                item.amount_old = Number.parseFloat(item.price_old) * common.config.priceVN * Number.parseFloat(item.quantity);
 
                 // Lấy giá hiện tại của coin
                 item.price_current = me.getPriceCurrent(item);
 
                 // Tính số tiền mới
-                item.amount_current = item.price_current * common.config.priceVN;
+                item.amount_current = item.price_current * common.config.priceVN * Number.parseFloat(item.quantity);
 
                 // Tính số tiền chênh lệch
                 item.amount_diff = item.amount_current - item.amount_old;
@@ -151,6 +151,7 @@ class Binance {
                 let statusCls = item.status == "Lỗ" ? "txtRed" : "txtBlue",
                     row = $(`<tr class='row-new'>
                                 <td>${item.code}</td>
+                                <td class='text-right'>${item.quantity || ""}</td>
                                 <td class='text-right'>${item.price_old || ""}</td>
                                 <td class='text-right'>${item.price_current || ""}</td>
                                 <td class='text-right'>${common.formatMoney(item.amount_old)}</td>
@@ -172,7 +173,7 @@ class Binance {
 
         // Lấy giá hiện tại của coin
         common.Ajax(url, "GET", function (response) {
-            price = response.price;
+            price = Number.parseFloat(response.price);
         }, false);
 
         return price;
@@ -187,6 +188,7 @@ class Binance {
             let obj = {
                 code: $(this).find("[field='code']").val(),
                 price_old: $(this).find("[field='price_old']").val(),
+                quantity: $(this).find("[field='quantity']").val()
             };
 
             data.push(obj);
