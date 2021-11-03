@@ -133,7 +133,7 @@ class Binance {
 
         // Lấy giá hiện tại của coin
         common.Ajax(url, "GET", function (response) {
-            price = response.price;
+            price = response.USD;
         }, false);
 
         return price;
