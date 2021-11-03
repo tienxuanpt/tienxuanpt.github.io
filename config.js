@@ -16,7 +16,7 @@ common.Ajax = (url, method, fnCallBack, async = true) => {
         async: async,
         headers: {
             "Content-Type": "application/json",
-            "authorization": "Apikey 24e6b21185b3f3a399453aa2bb0203b326956732e9631c00a0a7400f4907ef10"
+           // "authorization": "Apikey 24e6b21185b3f3a399453aa2bb0203b326956732e9631c00a0a7400f4907ef10"
         },
         crossDomain: true,
         contentType: "application/json;charset=utf-8",
