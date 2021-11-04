@@ -10,7 +10,7 @@ class Binance {
         // ID của vòng lặp
         me.intervalID = null;
         // Thời gian lặp lại biểu đồ
-        me.interValTime = 15;
+        me.interValTime = 3;
         // Gía đô
         me.priceVN = 23500;
 
