@@ -4,7 +4,8 @@ class Binance {
         let me = this;
 
         // Số tiền dừng lại
-        me.amountStop = 50000;
+        me.amountStop1 = 50000;
+        me.amountStop2 = -50000;
         // Lưu thông tin audio
         me.audio = new Audio("nhacchuong.mp3");
         // ID của vòng lặp
@@ -76,7 +77,8 @@ class Binance {
         // Thời gian làm mới
         me.interValTime = Number.parseInt($(".time-refresh").val());
         // Số tiền chốt lời
-        me.amountStop = Number.parseInt($(".amount-stop").val());
+        me.amountStop1 = Number.parseInt($(".amount-stop1").val());
+        me.amountStop2 = Number.parseInt($(".amount-stop2").val());
         // Gía đô
         me.priceVN = Number.parseInt($(".amount-VN").val());
 
@@ -147,7 +149,7 @@ class Binance {
             data.push(sumData);
 
             // Nếu lãi hoặc lỗ quá số tiền quy định thì bật nhạc
-            if(Math.abs(sumData.amount_diff) >= me.amountStop){
+            if(sumData.amount_diff > me.amountStop1 || sumData.amount_diff < me.amountStop2 ){
                 me.playAudio();
             }
 
